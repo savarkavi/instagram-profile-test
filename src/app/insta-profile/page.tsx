@@ -17,6 +17,7 @@ const InstaProfile = () => {
 
         console.log(res);
       };
+      getRes();
     }
   }, [code]);
 
