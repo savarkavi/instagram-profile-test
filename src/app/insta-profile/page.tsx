@@ -1,32 +1,33 @@
 "use client";
 
 import axios from "axios";
-import React from "react";
+import { useParams, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 const InstaProfile = () => {
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const params = useParams();
+  const searchParams = useSearchParams();
 
-    try {
-      const res = await axios.get(
-        "https://graph.instagram.com/me?fields=id,username,bio&access_token=IGQWROakdjV2NVakR6dEtLUlFaVTJ4ZAWREM253VmNxb3lrLW8tcHFlV3h4OGVvM3lEczJVMnpqS0FTMVgtdjZAicWRZAa3hhMUxTZAzhjMHMzdkJFTnNiTnI2ZADV1NUlWVjVNRnRaMGtBOE9xYjdGbVltYk96MkNmLXF2MFIzRDJrQXRQVncZD"
-      );
+  const code = searchParams.get("code");
 
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  useEffect(() => {
+    const getProfile = async () => {
+      try {
+        const res = await axios.get(
+          `https://graph.instagram.com/me?fields=id,username,bio&access_token=${code}`
+        );
+
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getProfile();
+  }, [code]);
 
   return (
-    <div className="flex flex-col gap-10 justify-center items-center h-screen">
-      <h1 className="text-center text-4xl font-bold">
-        Enter instagram username
-      </h1>
-      <form onSubmit={(e) => onSubmit}>
-        <input className="border border-black outline-none rounded-lg p-3" />
-      </form>
-    </div>
+    <div className="flex flex-col gap-10 justify-center items-center h-screen"></div>
   );
 };
 
