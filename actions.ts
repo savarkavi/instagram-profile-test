@@ -26,6 +26,8 @@ export const getProfile = async (code: string) => {
       `https://graph.instagram.com/me?fields=id,username&access_token=${res.data.access_token}`
     );
 
+    return profile;
+
     console.log(profile);
   } catch (error) {
     console.log(error);
