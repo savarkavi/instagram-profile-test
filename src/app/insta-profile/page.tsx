@@ -12,9 +12,11 @@ const InstaProfile = () => {
 
   useEffect(() => {
     if (code) {
-      const res = getProfile(code);
+      const getRes = async () => {
+        const res = await getProfile(code);
 
-      console.log(res);
+        console.log(res);
+      };
     }
   }, [code]);
 
