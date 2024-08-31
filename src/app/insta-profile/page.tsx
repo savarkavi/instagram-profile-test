@@ -1,29 +1,30 @@
 "use client";
 
 import axios from "axios";
-import { useParams, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 
 const InstaProfile = () => {
-  const params = useParams();
   const searchParams = useSearchParams();
 
   const code = searchParams.get("code");
 
   useEffect(() => {
-    const getProfile = async () => {
-      try {
-        const res = await axios.get(
-          `https://graph.instagram.com/me?fields=id,username,bio&access_token=${code}`
-        );
+    if (code) {
+      const getProfile = async () => {
+        try {
+          const res = await axios.get(
+            `https://graph.instagram.com/me?fields=id,username,bio&access_token=${code}`
+          );
 
-        console.log(res);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+          console.log(res);
+        } catch (error) {
+          console.log(error);
+        }
+      };
 
-    getProfile();
+      getProfile();
+    }
   }, [code]);
 
   return (
@@ -31,4 +32,12 @@ const InstaProfile = () => {
   );
 };
 
-export default InstaProfile;
+const SuspenseWrapper = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <InstaProfile />
+    </Suspense>
+  );
+};
+
+export default SuspenseWrapper;
