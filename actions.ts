@@ -1,20 +1,20 @@
 "use server";
 
 import axios from "axios";
+import querystring from "querystring";
 
 export const getProfile = async (code: string) => {
   try {
     const res = await axios.post(
       "https://api.instagram.com/oauth/access_token",
-
-      {
+      querystring.stringify({
         client_id: "380484498248881",
         client_secret: "ef9ee33cf46ace3955bf3e60c68f199e",
         grant_type: "authorization_code",
         redirect_uri:
           "https://instagram-profile-test.vercel.app/insta-profile/",
         code: code,
-      },
+      }),
       {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
