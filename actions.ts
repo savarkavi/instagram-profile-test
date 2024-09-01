@@ -25,10 +25,8 @@ export const getProfile = async (code: string) => {
     const profile = await axios.get(
       `https://graph.instagram.com/me?fields=id,username&access_token=${res.data.access_token}`
     );
-    console.log(res);
 
-    console.log(profile);
-    return profile;
+    return profile.data;
   } catch (error) {
     console.log(error);
   }
