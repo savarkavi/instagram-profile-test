@@ -23,10 +23,14 @@ export const getProfile = async (code: string) => {
     );
 
     const profile = await axios.get(
-      `https://graph.instagram.com/me?fields=id,username&access_token=${res.data.access_token}`
+      `https://graph.instagram.com/me?fields=id,username,account_type,media_count&access_token=${res.data.access_token}`
     );
 
-    return profile.data;
+    const insights = await axios.get(
+      `https://graph.facebook.com/v20.0/${profile.data.id}/insights?metric=impressions,reach,profile_views&period=day&access_token=${res.data.access_token}`
+    );
+
+    return { profile: profile.data, insights: insights.data };
   } catch (error) {
     console.log(error);
   }
