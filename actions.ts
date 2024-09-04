@@ -8,8 +8,8 @@ export const getProfile = async (code: string) => {
     const res = await axios.post(
       "https://api.instagram.com/oauth/access_token",
       querystring.stringify({
-        client_id: "380484498248881",
-        client_secret: "ef9ee33cf46ace3955bf3e60c68f199e",
+        client_id: "1792949961232551",
+        client_secret: "0a6e0a22fb03e233c474a442abded2d9",
         grant_type: "authorization_code",
         redirect_uri:
           "https://instagram-profile-test.vercel.app/insta-profile/",
